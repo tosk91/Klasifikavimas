@@ -7,14 +7,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ListBox HorizontalAlignment="Left" Height="401" Margin="10,10,0,0" VerticalAlignment="Top" Width="280"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="401" Margin="10,10,0,0" VerticalAlignment="Top" Width="280"/>
         <WrapPanel HorizontalAlignment="Left" Height="47" Margin="295,10,0,0" VerticalAlignment="Top" Width="75">
             <Label Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75"/>
+            <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
         </WrapPanel>
-        <StackPanel HorizontalAlignment="Left" Height="29" Margin="295,62,0,0" VerticalAlignment="Top" Width="119">
-            <RadioButton Content="Is Failo"/>
-            <RadioButton Content="Is duomenu bazes"/>
+        <WrapPanel HorizontalAlignment="Left" Height="60" Margin="295,62,0,0" VerticalAlignment="Top" Width="122">
+            <RadioButton x:Name="dbButton" Content="Is duomenu bazes"/>
+            <RadioButton x:Name="fileButton" Content="Is Failo" Margin="0,0,-0.333,0" Width="114"/>
+            <Label Content="k:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ComboBox x:Name="kSelectMenu" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="2"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="4"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="6"/>
+            </ComboBox>
+        </WrapPanel>
+        <StackPanel HorizontalAlignment="Left" Height="37" Margin="295,127,0,0" VerticalAlignment="Top" Width="122">
+            <RadioButton x:Name="F1Button" Content="Formula 1" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <RadioButton x:Name="F2Button" Content="Formula 2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </StackPanel>
 
     </Grid>
