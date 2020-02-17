@@ -18,9 +18,8 @@ namespace ConsoleTests1
             // 3: Humidity
             // 4: Wind
             int columnIndex;
-            List<string> classList;
             string columnName;
-            List<string> columnTypesListPairedWithPlay;
+            List<string> columnTypesListPairedWithPlay, classList;
 
             for (columnIndex = 1; columnIndex <= 4; columnIndex++)
             {
