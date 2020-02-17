@@ -28,7 +28,7 @@ namespace ConsoleTests
 
             //Console.WriteLine("\nPrinting DataTable from file:\n");
             //PrintDataTable(dt);
-            
+
             int sunnyCount = 0, rainCount = 0, overcastCount = 0, coolCount = 0, mildCount = 0, hotCount = 0, normalCount = 0, highCount = 0, weakCount = 0, strongCount = 0, yesCount = 0, noCount = 0;
             for (int i = 0; i < trainData.Count; i++)
             {
@@ -47,19 +47,19 @@ namespace ConsoleTests
             }
             List<int> typesOccurencesCountList = new List<int>() { sunnyCount, rainCount, overcastCount, coolCount, mildCount, hotCount, normalCount, highCount, weakCount, strongCount };
             Console.Write($"\nSunny count: {sunnyCount}" +
-                    $"\nRain count: {rainCount}"+
-                    $"\nOvercast count: {overcastCount}"+
-                    $"\nCool count: {coolCount}"+
-                    $"\nMild count: {mildCount}"+
-                    $"\nHot count: {hotCount}"+
-                    $"\nNormal count: {normalCount}"+
-                    $"\nHigh count: {highCount}"+
-                    $"\nWeak count: {weakCount}"+
-                    $"\nStrong count: {strongCount}"+
-                    $"\nYes count: {yesCount}"+
+                    $"\nRain count: {rainCount}" +
+                    $"\nOvercast count: {overcastCount}" +
+                    $"\nCool count: {coolCount}" +
+                    $"\nMild count: {mildCount}" +
+                    $"\nHot count: {hotCount}" +
+                    $"\nNormal count: {normalCount}" +
+                    $"\nHigh count: {highCount}" +
+                    $"\nWeak count: {weakCount}" +
+                    $"\nStrong count: {strongCount}" +
+                    $"\nYes count: {yesCount}" +
                     $"\nNo count: {noCount}");
 
-            int[] outlookCounts = new int[3] { sunnyCount,rainCount,overcastCount};
+            int[] outlookCounts = new int[3] { sunnyCount, rainCount, overcastCount };
             int[] temperatureCounts = new int[3] { coolCount, mildCount, hotCount };
             int[] humidityCounts = new int[2] { normalCount, highCount };
             int[] windCounts = new int[2] { weakCount, strongCount };
@@ -70,15 +70,30 @@ namespace ConsoleTests
 
             List<string> outlooks = new List<string>() { "sunny", "rain", "overcast" };
             Console.WriteLine($"\nOutlooks GI: {calculateClassGI(trainData, outlooks)}");
+            Console.WriteLine($"Outlooks GI: {calculateClassGI(trainData, outlooks):0.0000}");
 
             List<string> temperatures = new List<string>() { "cool", "mild", "hot" };
             Console.WriteLine($"\nTemperatures GI: {calculateClassGI(trainData, temperatures)}");
+            Console.WriteLine($"Temperatures GI: {calculateClassGI(trainData, temperatures):0.0000}");
 
             List<string> humidity = new List<string>() { "normal", "high" };
             Console.WriteLine($"\nHumidity GI: {calculateClassGI(trainData, humidity)}");
+            Console.WriteLine($"Humidity GI: {calculateClassGI(trainData, humidity):0.0000}");
 
             List<string> wind = new List<string>() { "weak", "strong" };
             Console.WriteLine($"\nWind GI: {calculateClassGI(trainData, wind)}");
+            Console.WriteLine($"Wind GI: {calculateClassGI(trainData, wind):0.0000}");
+
+            List<List<string>> classes = new List<List<string>>();
+            classes.Add(outlooks);
+            classes.Add(temperatures);
+            classes.Add(humidity);
+            classes.Add(wind);
+
+            Node rootNode = null;
+            MyTree tree = new MyTree();
+            tree.addNode(rootNode, classes);
+            Console.WriteLine(tree.printTree());
 
             Console.ReadKey();
         }
@@ -101,10 +116,10 @@ namespace ConsoleTests
                 Console.WriteLine();
             }
         }
-        static double calculatePropertyGI(int yesCount, int noCount)
-        {
-            return 1 - Math.Pow(Convert.ToDouble(yesCount) / Convert.ToDouble(yesCount + noCount), 2) - Math.Pow(Convert.ToDouble(noCount) / Convert.ToDouble(yesCount + noCount), 2);
-        }
+        //static double calculatePropertyGI(int yesCount, int noCount)
+        //{
+        //    return 1 - Math.Pow(Convert.ToDouble(yesCount) / Convert.ToDouble(yesCount + noCount), 2) - Math.Pow(Convert.ToDouble(noCount) / Convert.ToDouble(yesCount + noCount), 2);
+        //}
         static double calculateClassTypeGI(List<string> trainData, string typeName)
         {
             int tempYesCount = 0, tempNoCount = 0;
@@ -113,10 +128,12 @@ namespace ConsoleTests
                 if (trainData[i].Contains(typeName) && trainData[i].EndsWith("yes")) tempYesCount++;
                 else if (trainData[i].Contains(typeName) && trainData[i].EndsWith("no")) tempNoCount++;
             }
-           return calculatePropertyGI(tempYesCount, tempNoCount);
+            return 1 - Math.Pow(Convert.ToDouble(tempYesCount) / Convert.ToDouble(tempYesCount + tempNoCount), 2) - Math.Pow(Convert.ToDouble(tempNoCount) / Convert.ToDouble(tempYesCount + tempNoCount), 2);
+            //return calculatePropertyGI(tempYesCount, tempNoCount);
         }
-        static double calculateClassGI(List<string> trainData, List<string> classTypesNames)
+        public static double calculateClassGI(List<string> trainData, List<string> classTypesNames)
         {
+            // calculate different types GI: (Outlook: Sunny, Rain, Overcast)
             double[] classTypesGIs = new double[classTypesNames.Count];
             int[] typeOccurences = new int[classTypesNames.Count];
             for (int i = 0; i < classTypesNames.Count; i++)
@@ -125,6 +142,7 @@ namespace ConsoleTests
                 for (int j = 0; j < trainData.Count; j++)
                     if (trainData[j].Contains(classTypesNames[i])) typeOccurences[i]++;
             }
+            // calculate whole class GI: (Outlook, Temperature,Humidity, Wind)
             double result = 0;
             int typeOccurencesSum = 0;
             for (int i = 0; i < typeOccurences.Length; i++)

@@ -8,12 +8,14 @@ namespace ConsoleTests
 {
     class Node
     {
-        string name;
+        private string name;
         Node left;
         Node right;
-        public Node(string name)
+        public Node() { }
+        public string Name
         {
-            this.name = name;
+            get { return this.name; }
+            set { this.name = value; }
         }
     }
 }
