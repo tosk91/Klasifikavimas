@@ -50,8 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MyTree.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="Attribute.cs" />
+    <Compile Include="Header.cs" />
+    <Compile Include="ListGen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
