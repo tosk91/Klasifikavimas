@@ -9,14 +9,13 @@ namespace ConsoleTests1
     class Node
     {
         private string name;
-        private double giValue; 
-        private Node[] neighbors; // n = 3 
-        private Node[] children; // n = 3
+        private double giValue;
+        List<Node> children;
+        List<Attribute> attributes;
 
         public Node()
         {
-            this.neighbors = new Node[3];
-            this.children = new Node[3];
+            this.children = null;
         }
         public string Name
         {
@@ -28,7 +27,21 @@ namespace ConsoleTests1
             get { return this.giValue; }
             set { this.giValue = value; }
         }
-        public Node[] Neighbors { get { return this.neighbors; } }
-        public Node[] Children { get { return this.children; } }
+        public List<Node> Children
+        {
+            get { return this.children; }
+            set { this.children = value; }
+        }
+        public List<Attribute> Attributes
+        {
+            get { return this.attributes; }
+            set { this.attributes = value; }
+        }
+        public string fullNodeInfo() { return $"Name: {this.name}, GI index: {this.giValue}"; }
+
+        public override string ToString()
+        {
+            return $"Name: {this.name}, GI index: {this.giValue}";
+        }
     }
 }

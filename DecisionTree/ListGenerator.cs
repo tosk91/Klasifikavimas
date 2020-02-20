@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleTests1
+namespace DecisionTree
 {
     class ListGenerator
     {
@@ -17,7 +17,7 @@ namespace ConsoleTests1
         {
             return trainData[0].Split(',').ToList()[index];
         }
-        public string getTypeName(List<string> typeList,int index)
+        public string getTypeName(List<string> typeList, int index)
         {
             return typeList[index];
         }
@@ -37,7 +37,7 @@ namespace ConsoleTests1
         {
             List<string> output = new List<string>();
             string result;
-            for(int i=1; i<trainData.Count;i++)
+            for (int i = 1; i < trainData.Count; i++)
             {
                 result = $"{trainData[i].Split(',').ToList()[columnIndex]},{trainData[i].Split(',').ToList()[5]}";
                 output.Add(result);
@@ -54,7 +54,7 @@ namespace ConsoleTests1
                 result = $"{trainData[i].Split(',').ToList()[columnIndex]},{calc.calculateClassTypeGI_Class_Play_pairs(getClassAndPlayPair(columnIndex), trainData[i].Split(',').ToList()[columnIndex])}";
                 if (output.Contains(trainData[i].Split(',').ToList()[columnIndex]))
                 {
-                    
+
                     output.Add(result);
                 }
             }
@@ -78,15 +78,15 @@ namespace ConsoleTests1
             List<double> GIList = getGIList();
             List<string> outputList = new List<string>();
             for (int i = 1; i <= GIList.Count; i++)
-                outputList.Add($"{getColumnName(i)},{GIList[i-1]}");
+                outputList.Add($"{getColumnName(i)},{GIList[i - 1]}");
             return outputList;
         }
         public List<string> sortedGIandClassNamePairsList(List<string> myPairsList)
         {
             List<double> GIList = getGIList();
-            for (int i = 0; i < GIList.Count-1; i++)
+            for (int i = 0; i < GIList.Count - 1; i++)
             {
-                if (GIList[i] >= GIList[i+1])
+                if (GIList[i] >= GIList[i + 1])
                 {
                     double temp = GIList[i];
                     GIList[i] = GIList[i + 1];
@@ -111,14 +111,18 @@ namespace ConsoleTests1
                 columnTypesListPairedWithPlay = getClassAndPlayPair(columnIndex);
                 classList = getListOfClass(columnIndex);
                 columnName = getColumnName(columnIndex);
-                
+
                 for (int i = 0; i < classList.Count; i++)
                 {
                     output.Add($"{getTypeName(classList, i)},{calculator.calculateClassTypeGI_Class_Play_pairs(columnTypesListPairedWithPlay, classList[i])}");
                 }
             }
-            
+
             return output;
         }
+        //public List<string> getTypeAndGIPairs(int index)
+        //{
+
+        //}
     }
 }

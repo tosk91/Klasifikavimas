@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DecisionTree"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="468.498" Width="491.225">
     <Grid>
-        
+        <ListBox x:Name="TheListBox" HorizontalAlignment="Left" Height="401" Margin="123,10,0,0" VerticalAlignment="Top" Width="297"/>
+        <Button x:Name="TheThingButton" Background="Yellow" Foreground="Green" Content="DO THE THING" HorizontalAlignment="Left" Margin="10,214,0,0" VerticalAlignment="Top" Width="100" Height="45" Click="Button_Click"/>
+        <StackPanel HorizontalAlignment="Left" Height="204" Margin="10,10,0,0" VerticalAlignment="Top" Width="108">
+            <Label Content="Outlook:" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            <Label Content="Temperature" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            <Label Content="Humidity" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+            <Label Content="Wind" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100"/>
+            <ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Width="100"/>
+        </StackPanel>
+
     </Grid>
 </Window>

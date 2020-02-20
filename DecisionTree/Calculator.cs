@@ -8,33 +8,45 @@ namespace DecisionTree
 {
     class Calculator
     {
-        List<Balloon> balloons = new List<Balloon>();
-        public Calculator() { }
-        public double GI()
+        public double calculateClassTypeGI_Class_Play_pairs(List<string> typePairs, string typeName) // Skaiciuoja gerai
         {
-            throw new NotImplementedException();
+            int tempYesCount = 0, tempNoCount = 0;
+            for (int i = 0; i < typePairs.Count; i++)
+            {
+                if (typePairs[i].Contains(typeName) && typePairs[i].Contains("yes")) tempYesCount++;
+                else if (typePairs[i].Contains(typeName) && typePairs[i].Contains("no")) tempNoCount++;
+            }
+            return 1 - Math.Pow(Convert.ToDouble(tempYesCount) / Convert.ToDouble(tempYesCount + tempNoCount), 2) - Math.Pow(Convert.ToDouble(tempNoCount) / Convert.ToDouble(tempYesCount + tempNoCount), 2);
         }
-        //public bool checkInflated(Balloon balloon) {
-        //    if (isYellow(balloon))
-        //        if(isSmall(balloon))
-        //            if(isStretched(balloon))
-        //                if(isAdult(balloon))
-        //}
-        //public List<Balloon> GetBalloons()
-        //{
-        //    return balloons;
-        //}
-        //public bool isYellow(Balloon balloon) { if (balloon.Color == "Yellow") return true; else return false; }
-        //public bool isPurple(Balloon balloon) { if (balloon.Color == "Purple") return true; else return false; }
-        //public bool isSmall(Balloon balloon) { if (balloon.Size == "Small") return true; else return false; }
-        //public bool isLarge(Balloon balloon) { if (balloon.Size == "Large") return true; else return false; }
-        //public bool isStretched(Balloon balloon) { if (balloon.Size == "Stretch") return true; else return false; }
-        //public bool isDipped(Balloon balloon) { if (balloon.Size == "Dip") return true; else return false; }
-        //public bool isAdult(Balloon balloon) { if (balloon.Size == "Adult") return true; else return false; }
-        //public bool isChild(Balloon balloon) { if (balloon.Size == "Child") return true; else return false; }
-        //public void addToList(Balloon balloon)
-        //{
-        //    balloons.Add(balloon);
-        //}
+        public double calculateClassGI_By_Pairs(List<string> classTypesNamesPair, List<string> classTypes) // Skaiciuoja gerai
+        {
+            // calculate different types GI: (Outlook: Sunny, Rain, Overcast)
+            double[] classTypesGIs = new double[classTypes.Count];
+            int[] typeOccurences = new int[classTypes.Count];
+            for (int i = 0; i < classTypes.Count; i++)
+            {
+                classTypesGIs[i] = calculateClassTypeGI_Class_Play_pairs(classTypesNamesPair, classTypes[i]);
+                for (int j = 0; j < classTypesNamesPair.Count; j++)
+                    if (classTypesNamesPair[j].Contains(classTypes[i])) typeOccurences[i]++;
+            }
+            // calculate whole column GI: (Outlook, Temperature,Humidity, Wind)
+            double result = 0;
+            int typeOccurencesSum = 0;
+            for (int i = 0; i < typeOccurences.Length; i++)
+                typeOccurencesSum += typeOccurences[i];
+            for (int i = 0; i < classTypes.Count; i++)
+                result += Convert.ToDouble(typeOccurences[i]) / Convert.ToDouble(typeOccurencesSum) * classTypesGIs[i];
+            return result;
+        }
+        public double getLowestGI(List<double> GIList)
+        {
+            double min = 999;
+            foreach (double item in GIList)
+            {
+                if (item == 0) { }
+                else if (item <= min) min = item;
+            }
+            return min;
+        }
     }
 }

@@ -40,5 +40,15 @@ namespace ConsoleTests1
                 result += Convert.ToDouble(typeOccurences[i]) / Convert.ToDouble(typeOccurencesSum) * classTypesGIs[i];
             return result;
         }
+        public double getLowestGI(List<double> GIList)
+        {
+            double min = 999;
+            foreach (double item in GIList)
+            {
+                if (item == 0) { }
+                else if (item <= min) min = item;
+            }
+            return min;
+        }
     }
 }
