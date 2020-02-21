@@ -26,7 +26,7 @@ namespace ConsoleTests
             }
             return headers;
         }
-        // returns a list of different attributes for a header { sunny, rain, overcast }
+        // returns a list of different attributes for a header { sunny, rain, overcast }.
         public void getAttributes(Header header)
         {
             List<Attribute> attributes = new List<Attribute>();
